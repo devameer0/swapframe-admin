@@ -71,10 +71,10 @@ async function users() {
     let r = sb.from('profiles').select('*').order('created_at', { ascending: false }).limit(200);
     if (q) r = r.or(`email.ilike.%${q.replace(/[%,()]/g, '')}%,full_name.ilike.%${q.replace(/[%,()]/g, '')}%`);
     const { data, error } = await r; if (error) return err(error.message);
-    $('#ul').innerHTML = data.length ? `<table><tr><th>Email</th><th>Name</th><th>Role</th><th>Credits</th><th>Used</th><th>Banned</th><th></th></tr>${data.map((u) => `<tr data-id="${u.id}">
+    $('#ul').innerHTML = data.length ? `<table><tr><th>Email</th><th>Name</th><th>Role</th><th>Used</th><th>Banned</th><th></th></tr>${data.map((u) => `<tr data-id="${u.id}">
       <td><input type="text" data-f="email" value="${esc(u.email)}"/></td><td><input type="text" data-f="full_name" value="${esc(u.full_name)}"/></td>
       <td><select data-f="role"><option ${u.role === 'user' ? 'selected' : ''}>user</option><option ${u.role === 'admin' ? 'selected' : ''}>admin</option></select></td>
-      <td><input type="number" min="0" data-f="credits" value="${u.credits}"/></td><td>${u.usage_count}</td>
+      <td>${u.usage_count}</td>
       <td><input type="checkbox" data-f="banned" ${u.banned ? 'checked' : ''}/></td>
       <td style="white-space:nowrap"><button class="btn sm" data-a="save">Save</button> <a class="btn ghost sm" href="#/jobs?u=${u.id}">Jobs</a>
       <button class="btn ghost sm" data-a="purge">Delete jobs</button> <button class="btn sm danger" data-a="del">Delete user</button></td></tr>`).join('')}</table>
@@ -84,8 +84,7 @@ async function users() {
       try {
         if (b.dataset.a === 'save') {
           const v = (f) => tr.querySelector(`[data-f=${f}]`);
-          const { error } = await sb.from('profiles').update({ email: v('email').value, full_name: v('full_name').value || null, role: v('role').value,
-            credits: Math.max(0, parseInt(v('credits').value) || 0), banned: v('banned').checked }).eq('id', id);
+          const { error } = await sb.from('profiles').update({ email: v('email').value, full_name: v('full_name').value || null, role: v('role').value, banned: v('banned').checked }).eq('id', id);
           if (error) throw error; ok('Saved.');
         } else if (b.dataset.a === 'purge') {
           if (!confirm('Delete ALL jobs and files for this user?')) return;
@@ -143,7 +142,7 @@ async function settings() {
    <div class="row"><div><label>Primary</label><input type="color" id="s_primary" value="${esc(S.primary)}"/></div><div><label>Accent</label><input type="color" id="s_accent" value="${esc(S.accent)}"/></div></div>
    <label>Font</label><select id="s_font">${Object.keys(FONTS).map((f) => `<option ${S.font === f ? 'selected' : ''}>${f}</option>`).join('')}</select>
    ${txt('background', 'Background (image URL or CSS background, blank = default)')}</div>
-   <div class="card"><h3>Limits & toggles</h3><div class="row"><div>${txt('max_upload_mb', 'Max upload (MB)', 'number')}</div><div>${txt('daily_limit', 'Free daily swaps per user (0 = no limit)', 'number')}</div></div>
+   <div class="card"><h3>Limits & toggles</h3><div class="row"><div>${txt('max_upload_mb', 'Max upload (MB)', 'number')}</div><div>${txt('daily_limit', 'Optional daily cap per user (0 = unlimited, default)', 'number')}</div></div>
    <div class="row"><div>${txt('min_seconds', 'Min video length (s)', 'number')}</div><div>${txt('max_seconds', 'Max video length (s)', 'number')}</div></div>
    ${chk('signups_open', 'Sign-ups open')}${chk('maintenance_mode', 'Maintenance mode (pauses generation for non-admins)')}
    ${txt('announcement', 'Announcement banner (blank = hidden)')}
