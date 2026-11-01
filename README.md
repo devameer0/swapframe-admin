@@ -6,9 +6,9 @@ The owner's admin dashboard for [SwapFrame](https://github.com/devameer0/swapfra
 
 ## Features
 - **Stats:** total users, banned users, total jobs, jobs today, succeeded, failed, in progress.
-- **Users:** search, then edit email display, name, role (user/admin),  Delete all of a user's jobs and files, or delete the user completely.
+- **Users:** search, then edit email display, name, role (user/admin) and ban status. Delete all of a user's jobs and files, or delete the user completely.
 - **Jobs:** view any job (status, error, signed links to the input video, character image and output) and delete it along with its files. Filter by user.
-- **Site settings:** site name, logo URL, theme (dark/light), primary and accent colors, font, background, max upload size and min/max length, free daily swaps per user, sign-ups open/closed, maintenance mode, announcement banner.
+- **Site settings:** site name, logo URL, theme (dark/light), primary and accent colors, font, background, max upload size and min/max length, optional daily cap (0 = unlimited, default), sign-ups open/closed, maintenance mode, announcement banner.
 - **Content:** landing page tagline, hero text, button text, sections, footer text and links.
 
 Changes save to the shared `site_settings` table and show on the main site live (Realtime), or on its next page load. No redeploy needed.
