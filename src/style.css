@@ -64,3 +64,4 @@ footer{color:var(--mute);font-size:.86rem;padding:2.5rem 0;text-align:center}foo
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem}.stats .card b{display:block;font-size:2rem;font-weight:600;letter-spacing:-.02em}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}@media(max-width:700px){.row{grid-template-columns:1fr}}
 td input[type=number]{width:80px}td select{width:auto;padding:.4rem}td input[type=text]{min-width:140px}
+.tf.on{color:var(--bg);background:var(--acc)}

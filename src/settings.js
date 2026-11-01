@@ -5,7 +5,7 @@ export const DEFAULTS = {
   tagline: '// RECAST ANY CLIP',
   hero_title: 'Your character.',
   hero_highlight: 'Their every move.',
-  hero_text: 'Upload a short video and a character image. SwapFrame replaces the person on screen with your character while keeping the original motion, camera and background.',
+  hero_text: 'Upload a photo and a character image. SwapFrame puts your character into the shot while keeping the original pose, background and lighting.',
   cta_text: 'Get started',
   announcement: '',
   sections: [
